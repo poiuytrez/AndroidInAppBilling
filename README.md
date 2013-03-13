@@ -2,7 +2,7 @@ In app billing documentation
 ===================================
 Requirements
 -------------
-Tested on Cordova 2.3
+Tested on Cordova 2.3 and In App Billing v2
 
 Installation 
 -------------
