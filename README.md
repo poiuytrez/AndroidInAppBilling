@@ -1,7 +1,10 @@
 In app billing documentation
 ===================================
 
-Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application.
+Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application.  
+
+[Version 2 documentation](v2/README.md)  
+[Version 3 documentation](v3/README.md)
 
 In-app billing Version 3 is the latest version, and maintains very broad compatibility across the range of Android devices. In-app Billing Version 3 is supported on devices running Android 2.2 or higher that have the latest version of the Google Play store installed. 
 
