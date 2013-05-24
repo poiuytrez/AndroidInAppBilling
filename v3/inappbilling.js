@@ -21,7 +21,7 @@ var inappbilling = {
             "InAppBillingPlugin",
             "buy", [productId]);
     },
-    // purchase an item
+    // subscribe to an item
     subscribe: function (success, fail, productId) {
         return cordova.exec( success, fail,
             "InAppBillingPlugin",

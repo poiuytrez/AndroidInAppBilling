@@ -156,6 +156,7 @@ public class InAppBillingPlugin extends CordovaPlugin {
 		
 		if (mHelper == null){
 			callbackContext.error("Billing plugin was not initialized");
+			return;
 		}
 		
 		this.cordova.setActivityResultCallback(this);
@@ -167,6 +168,10 @@ public class InAppBillingPlugin extends CordovaPlugin {
 	
 	// Buy an item
 	private void subscribe(final String sku){
+		if (mHelper == null){
+			callbackContext.error("Billing plugin was not initialized");
+			return;
+		}
 		if (!mHelper.subscriptionsSupported()) {
             callbackContext.error("Subscriptions not supported on your device yet. Sorry!");
             return;
@@ -177,9 +182,7 @@ public class InAppBillingPlugin extends CordovaPlugin {
          *        an empty string, but on a production app you should generate this. */
 		final String payload = "";
 		
-		if (mHelper == null){
-			callbackContext.error("Billing plugin was not initialized");
-		}
+		
 		
 		this.cordova.setActivityResultCallback(this);
         Log.d(TAG, "Launching purchase flow for subscription.");
@@ -191,6 +194,10 @@ public class InAppBillingPlugin extends CordovaPlugin {
 	// Get the list of purchases
 	private JSONArray getPurchases(){
 		// Get the list of owned items
+		if(myInventory == null){
+			callbackContext.error("Billing plugin was not initialized");
+			return new JSONArray();
+		}
         List<String>skuList = myInventory.getAllOwnedSkus();
         
         // Convert the java list to json
@@ -208,6 +215,7 @@ public class InAppBillingPlugin extends CordovaPlugin {
 		
 		if (mHelper == null){
 			callbackContext.error("Did you forget to initialize the plugin?");
+			return;
 		} 
 		
 		String sku = data.getString(0);
