@@ -11,13 +11,11 @@ Purchasing and querying subscription items:
 
 Installation 
 -------------
-* Get acquainted with the Android In-app Billing documentation.
+* Get acquainted with the Android [In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
 * Add in your src folder the *com* folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
 	* Cordova InAppBillingPlugin
-* Add in your src folder the *net* folder  
-It contains the [Android Billing Library](https://github.com/robotmedia/AndroidBillingLibrary)
 * Add inappbilling.js in your www folder 
 * Add in your index.html
 `<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>`
@@ -26,27 +24,15 @@ It contains the [Android Billing Library](https://github.com/robotmedia/AndroidB
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
-	* this service and receiver inside the application element:  
-<pre>
-&lt;service android:name="net.robotmedia.billing.BillingService" /&gt;
-&lt;receiver android:name="net.robotmedia.billing.BillingReceiver"&gt;
-	&lt;intent-filter&gt;
-		&lt;action android:name="com.android.vending.billing.IN_APP_NOTIFY" /&gt;
-		&lt;action android:name="com.android.vending.billing.RESPONSE_CODE" /&gt;
-		&lt;action android:name="com.android.vending.billing.PURCHASE_STATE_CHANGED" /&gt;
-	&lt;/intent-filter&gt;
-&lt;/receiver&gt;
-</pre>
 * Create a release apk of your app and sign it. 
-* Create a new application via the "Old Design" of the Developer Console. You will be asked about switching to the new design for getting public key. DON'T do it. Perform all next actions from Old Design.
-* Upload your apk from the Old Design
+* Create a new application in the Developer Console. 
+* Upload your apk 
 * Enter the app description, logo, etc. then click on save
-* Add in-app purchases items from the Developer Console (publish them but do not publish the app)
-* Wait 6-8 hours
-* Switch to the New Design to get your application security key
+* Add in-app purchases items from the Developer Console (activate them but do not publish the app)
+* Click on Services and APIs to get your public license key
 * In com.smartmobilesoftware.inappbilling open InAppBillingPlugin.java
-	* Add you security key (public key)
-	* Modify the salt with random numbers
+	* Add your public key (base64EncodedPublicKey)
+* Wait 6-8 hours
 * Install the signed app on your test device in release mode. The Google Account on the test device should not be the same as the developer account).
 * Read carefully the Google testing guide to learn how to test your app : http://developer.android.com/guide/google/play/billing/billing_testing.html
 
