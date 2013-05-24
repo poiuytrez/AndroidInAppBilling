@@ -7,6 +7,11 @@ In-app billing Version 3 is the latest version, and maintains very broad compati
 
 In-app Billing Version 2 is superseded. Please [migrate to Version 3](http://developer.android.com/google/play/billing/billing_overview.html#migration) at your earliest convenience.
 
+Professional Support
+---------------------
+To get professional support for the plugin, please contact me at gcharhon(at)smartmobilesoftware.com.
+For community support, please use the issue tracker. 
+
 MIT License
 ----------------
 
