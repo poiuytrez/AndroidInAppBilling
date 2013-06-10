@@ -307,8 +307,17 @@ public class InAppBillingPlugin extends CordovaPlugin {
             	myInventory.erasePurchase(purchase.getSku());
                 Log.d(TAG, "Consumption successful. .");
                 
-                callbackContext.success(purchase.getOriginalJson());
-                
+               // append the purchase signature to json
+               try {
+                	
+                	JSONObject purchaseJsonObject = new JSONObject(purchase.getOriginalJson());
+                	purchaseJsonObject.put("signature", purchase.getSignature());
+                	callbackContext.success(purchaseJsonObject.toString());
+				
+                } catch (JSONException e) {
+			callbackContext.error("Error while consuming: " + result);
+		}
+        
             }
             else {
                 callbackContext.error("Error while consuming: " + result);
