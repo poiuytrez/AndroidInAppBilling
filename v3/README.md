@@ -2,7 +2,7 @@ In app billing documentation
 ===================================
 Requirements
 -------------
-Tested on Cordova 2.7, Android 2.2.1 and Android 4.2.2
+Tested on Cordova 2.8, Android 2.2.1 and Android 4.2.2
 
 * Purchasing and querying managed in-app items:  
 Google Play client version 3.9.16  
@@ -19,8 +19,13 @@ It contains:
 * Add inappbilling.js in your www folder 
 * Add in your index.html
 `<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>`
-* In res/xml/config.xml, add     
-`<plugin name="InAppBillingPlugin" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin"/>`
+* In res/xml/config.xml, add  
+
+```xml  
+<feature name="InAppBillingPlugin">   
+      <param name="android-package" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin"/>  
+</feature>  
+```
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
