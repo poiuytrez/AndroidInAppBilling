@@ -2,7 +2,7 @@ In app billing documentation
 ===================================
 Requirements
 -------------
-Tested on Cordova 2.8, Android 2.2.1 and Android 4.2.2
+Cordova 3.0, Android 2.2.1 and Android 4.2.2
 
 * Purchasing and querying managed in-app items:  
 Google Play client version 3.9.16  
