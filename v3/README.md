@@ -7,16 +7,21 @@ Cordova 3.0, Android 2.2.1 and Android 4.2.2
 * Purchasing and querying managed in-app items:  
 Google Play client version 3.9.16  
 * Purchasing and querying subscription items:  
-Google Play client version 3.10.10 or higher  
+Google Play client version 3.10.10 or higher
 
-Installation 
+* Plugman compatible
+
+Installation
 -------------
+
 * Get acquainted with the Android [In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
-* Add in your src folder the *com* folder  
+
+### Manually
+* Add in your src folder the *src/android/com* folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
 	* Cordova InAppBillingPlugin
-* Add inappbilling.js in your www folder 
+* Add www/inappbilling.js in your www folder 
 * Add in your index.html
 `<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>`
 * In res/xml/config.xml, add  
@@ -29,13 +34,20 @@ It contains:
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
+
+### PhoneGap/Cordova >= 3.0
+For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
+
+    cordova plugin add git://github.com/bthurlow/AndroidInAppBilling.git
+
+### Finish setting up your app
 * Create a release apk of your app and sign it. 
 * Create a new application in the Developer Console. 
 * Upload your apk 
 * Enter the app description, logo, etc. then click on save
 * Add in-app purchases items from the Developer Console (activate them but do not publish the app)
 * Click on Services and APIs to get your public license key
-* In com.smartmobilesoftware.inappbilling open InAppBillingPlugin.java
+* In src/android/com/smartmobilesoftware/inappbilling open InAppBillingPlugin.java
 	* Add your public key (base64EncodedPublicKey)
 * Wait 6-8 hours
 * Install the signed app on your test device in release mode. The Google Account on the test device should not be the same as the developer account).
@@ -46,10 +58,22 @@ Usage
 #### Initialization
 Initialize the billing plugin. The plugin must be inialized before calling any other methods. 
 
-    inappbilling.init(success, error)
+    inappbilling.init(success, error, options)
 parameters
 * success : The success callback.
 * error : The error callback.
+* options : Sets the options for the plugin
+	* Available Options :
+		* showLog [true,false] : showLog enables plugin JS debug messages.
+
+    inappbilling.init(success, error, options, skus)
+parameters
+* success : The success callback.
+* error : The error callback.
+* options : Sets the options for the plugin
+	* Available Options :
+		* showLog [true,false] : showLog enables plugin JS debug messages.
+* skus : string or string[] of product skus. ie. "prod1" or ["prod1","prod2]
 
 #### Retrieve owned products
 The list of owned products are retrieved from the local database.
@@ -100,6 +124,31 @@ parameters
 * error : The error callback.
 * productId : The in app billing porduct id (example "5_lifes")
 
+#### Get Product(s) Details
+Load the available product(s) to inventory. Not needed if you use the init(success, error, options, skus) method.  Can be used to update inventory if you need to add more skus.
+
+		inappbilling.getProductDetails(success, fail, skus)
+* success : The success callback.
+* error : The error callback.
+* skus : string or string[] of product skus. ie. "prod1" or ["prod1","prod2]
+
+#### Get Available Product(s)
+The list of the available product(s) in inventory.
+
+		inappbilling.getAvailableProducts(success, fail) 
+* success : The success callback. It provides a json array of the list of owned products as a parameter. Example :  
+[index][
+	title,
+	price,
+	type,
+	description,
+	productId,
+	price_currency_code
+]
+
+* error : The error callback.
+
+
 Quick example
 ---------------
 ```javascript
@@ -148,7 +197,7 @@ Full example
             // Click on init button
 			function init(){
 				// Initialize the billing plugin
-				inappbilling.init(successHandler, errorHandler); 
+				inappbilling.init(successHandler, errorHandler, {showLog:true});
 			}
 
 			// Click on purchase button
@@ -177,6 +226,14 @@ Full example
                 inappbilling.subscribe(successHandler, errorHandler,"infinite_gas");
 
             }
+            
+       function queryDetails(){
+						inappbilling.getProductDetails(successHandler, errorHandler, ["gas",""infinite_gas""]);
+       }
+       
+       function getAvailable(){
+						inappbilling.getAvailableProducts(successHandler, errorHandler);
+       }
 
         </script>
 		
@@ -188,8 +245,8 @@ Full example
         <button onclick="ownedProducts();">Owned products</button>
         <button onclick="consumePurchase();">Consume purchase</button>
         <button onclick="subscribe();">Subscribe</button>
-
-
+				<button onclick="getDetails();">Query Details</button>
+				<button onclick="getAvailable();">Get Available Products</button>
     </body>
 </html>
 ```
