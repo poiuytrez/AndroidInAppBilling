@@ -9,7 +9,7 @@ Google Play client version 3.9.16
 * Purchasing and querying subscription items:  
 Google Play client version 3.10.10 or higher
 
-* Plugman compatible
+* Plugman & Phonegap/Cordova 3 plugin compatible
 
 Installation
 -------------
@@ -22,13 +22,13 @@ For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
     cordova plugin add <location of v3.zip>
     
 ### Manually
-* Add in your src folder the *src/android/com* folder  
+* Add in your `src` folder the `src/android/com` folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
 	* Cordova InAppBillingPlugin
 * Create a `plugins` folder in your project's `www` folder if it does not exist.
 * Create a `com.smartmobilesoftware.inappbilling` folder inside the `plugins` folder.
-* Copy www/inappbilling.js into `<path to project>/www/plugins/com.phonegap.plugins.inapppurchase/www`
+* Copy `www/inappbilling.js` into `<path to project>/www/plugins/com.smartmobilesoftware.inappbilling/www`
 * In res/xml/config.xml, add  
 
 ```xml  
@@ -46,7 +46,7 @@ It contains:
     cordova.define('cordova/plugin_list', function(require, exports, module) {
     module.exports = [
         {
-            "file": "plugins/com.phonegap.plugins.inapppurchase/www/inappbilling.js",
+            "file": "plugins/com.smartmobilesoftware.inappbilling/www/inappbilling.js",
             "id": "com.smartmobilesoftware.inappbilling.InAppBillingPlugin",
             "clobbers": [
                 "inappbilling"
