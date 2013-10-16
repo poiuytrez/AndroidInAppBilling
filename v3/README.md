@@ -7,18 +7,28 @@ Cordova 3.0, Android 2.2.1 and Android 4.2.2
 * Purchasing and querying managed in-app items:  
 Google Play client version 3.9.16  
 * Purchasing and querying subscription items:  
-Google Play client version 3.10.10 or higher  
+Google Play client version 3.10.10 or higher
 
-Installation 
+* Plugman & Phonegap/Cordova 3 plugin compatible
+
+Installation
 -------------
+
 * Get acquainted with the Android [In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
-* Add in your src folder the *com* folder  
+
+### PhoneGap/Cordova >= 3.0
+For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
+
+    cordova plugin add <location of v3.zip>
+    
+### Manually
+* Add in your `src` folder the `src/android/com` folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
 	* Cordova InAppBillingPlugin
-* Add inappbilling.js in your www folder 
-* Add in your index.html
-`<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>`
+* Create a `plugins` folder in your project's `www` folder if it does not exist.
+* Create a `com.smartmobilesoftware.inappbilling` folder inside the `plugins` folder.
+* Copy `www/inappbilling.js` into `<path to project>/www/plugins/com.smartmobilesoftware.inappbilling/www`
 * In res/xml/config.xml, add  
 
 ```xml  
@@ -29,13 +39,31 @@ It contains:
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
+* Create a new file named `cordova_plugins.js` in the `<path to project>/www` folder if it does not exist.
+* Edit `cordova_plugins.js` and add a reference to the plugin to automatically load it:
+
+```javascript
+    cordova.define('cordova/plugin_list', function(require, exports, module) {
+    module.exports = [
+        {
+            "file": "plugins/com.smartmobilesoftware.inappbilling/www/inappbilling.js",
+            "id": "com.smartmobilesoftware.inappbilling.InAppBillingPlugin",
+            "clobbers": [
+                "inappbilling"
+	    ]
+    	}
+    ]
+    });
+```
+
+### Finish setting up your app
 * Create a release apk of your app and sign it. 
 * Create a new application in the Developer Console. 
 * Upload your apk 
 * Enter the app description, logo, etc. then click on save
 * Add in-app purchases items from the Developer Console (activate them but do not publish the app)
 * Click on Services and APIs to get your public license key
-* In com.smartmobilesoftware.inappbilling open InAppBillingPlugin.java
+* In src/android/com/smartmobilesoftware/inappbilling open InAppBillingPlugin.java
 	* Add your public key (base64EncodedPublicKey)
 * Wait 6-8 hours
 * Install the signed app on your test device in release mode. The Google Account on the test device should not be the same as the developer account).
@@ -46,10 +74,24 @@ Usage
 #### Initialization
 Initialize the billing plugin. The plugin must be inialized before calling any other methods. 
 
-    inappbilling.init(success, error)
+    inappbilling.init(success, error, options)
 parameters
 * success : The success callback.
 * error : The error callback.
+* options : Sets the options for the plugin
+	* Available Options :
+		* showLog [true,false] : showLog enables plugin JS debug messages. Default : true
+
+#### Optional Initialization
+
+    inappbilling.init(success, error, options, skus)
+parameters
+* success : The success callback.
+* error : The error callback.
+* options : Sets the options for the plugin
+	* Available Options :
+		* showLog [true,false] : showLog enables plugin JS debug messages. Default : true
+* skus : string or string[] of product skus. ie. "prod1" or ["prod1","prod2]
 
 #### Retrieve owned products
 The list of owned products are retrieved from the local database.
@@ -97,13 +139,40 @@ parameters
 	"purchaseState":0,
 	"purchaseToken":"ccroltzduesqaxtuuopnqcsc.AO-J1Oyao-HWamJo_6a4OQSlhflhOjQgYWbb-99VF2gcj_CB1dd1Sfp5d-olgouTWJ13Q6vc5zbl0SFfpofmpyuyeEmJ"
 }
+
 * error : The error callback.
 * productId : The in app billing porduct id (example "5_lifes")
+
+#### Get Product(s) Details
+Load the available product(s) to inventory. Not needed if you use the init(success, error, options, skus) method.  Can be used to update inventory if you need to add more skus.
+
+		inappbilling.getProductDetails(success, fail, skus)
+* success : The success callback.
+* error : The error callback.
+* skus : string or string[] of product skus. ie. "prod1" or ["prod1","prod2]
+
+#### Get Available Product(s)
+The list of the available product(s) in inventory.
+
+		inappbilling.getAvailableProducts(success, fail) 
+* success : The success callback. It provides a json array of the list of owned products as a parameter. Example :  
+{index:
+{
+	"title":"Infinite Gas",
+	"price":"2.99",
+	"type":"subs",
+	"description":"Lots of Infinite Gas",
+	"productId":"infinite_gas",
+	"price_currency_code":"USD"
+}}
+
+* error : The error callback.
+
 
 Quick example
 ---------------
 ```javascript
-inappbilling.init(successInit,errorCallback)
+inappbilling.init(successInit,errorCallback, {showLog:true})
 
 function successInit(result) {    
 	// display the extracted text   
@@ -148,7 +217,7 @@ Full example
             // Click on init button
 			function init(){
 				// Initialize the billing plugin
-				inappbilling.init(successHandler, errorHandler); 
+				inappbilling.init(successHandler, errorHandler, {showLog:true});
 			}
 
 			// Click on purchase button
@@ -177,7 +246,21 @@ Full example
                 inappbilling.subscribe(successHandler, errorHandler,"infinite_gas");
 
             }
-
+            
+			// Click on Query Details button
+			function queryDetails(){
+				// Query the store for the product details
+				inappbilling.getProductDetails(successHandler, errorHandler, ["gas","infinite_gas"]);
+				
+			}
+			
+			// Click on Get Available Products button
+			function getAvailable(){
+				// Get the products available for purchase.
+				inappbilling.getAvailableProducts(successHandler, errorHandler);
+				
+			}						
+			
         </script>
 		
 	</head>
@@ -188,8 +271,8 @@ Full example
         <button onclick="ownedProducts();">Owned products</button>
         <button onclick="consumePurchase();">Consume purchase</button>
         <button onclick="subscribe();">Subscribe</button>
-
-
+        <button onclick="getDetails();">Query Details</button>
+        <button onclick="getAvailable();">Get Available Products</button>
     </body>
 </html>
 ```

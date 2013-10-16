@@ -898,7 +898,9 @@ public class IabHelper {
         ArrayList<String> skuList = new ArrayList<String>();
         skuList.addAll(inv.getAllOwnedSkus(itemType));
         if (moreSkus != null) {
+			logDebug("moreSkus: Building SKUs List");
             for (String sku : moreSkus) {
+				logDebug("moreSkus: "+sku);
                 if (!skuList.contains(sku)) {
                     skuList.add(sku);
                 }
