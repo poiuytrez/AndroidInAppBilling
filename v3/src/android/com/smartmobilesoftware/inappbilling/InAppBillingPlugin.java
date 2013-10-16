@@ -263,16 +263,6 @@ public class InAppBillingPlugin extends CordovaPlugin {
 			return;
 		}
 
-		//DEBUG ONLY
-		String listString = "";
-
-		for (String s : skus)
-		{
-		    listString += s + "\t";
-		}
-
-		Log.d(TAG, "SKUS DUMP: "+listString);
-		
 		Log.d(TAG, "Beginning Sku(s) Query!");
 		mHelper.queryInventoryAsync(true, skus, mGotInventoryListener);
 	}
