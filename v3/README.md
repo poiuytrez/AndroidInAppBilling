@@ -16,14 +16,19 @@ Installation
 
 * Get acquainted with the Android [In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
 
+### PhoneGap/Cordova >= 3.0
+For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
+
+    cordova plugin add <location of v3.zip>
+    
 ### Manually
 * Add in your src folder the *src/android/com* folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
 	* Cordova InAppBillingPlugin
-* Add www/inappbilling.js in your www folder 
-* Add in your index.html
-`<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>`
+* Create a `plugins` folder in your project's `www` folder if it does not exist.
+* Create a `com.smartmobilesoftware.inappbilling` folder inside the `plugins` folder.
+* Copy www/inappbilling.js into `<path to project>/www/plugins/com.phonegap.plugins.inapppurchase/www`
 * In res/xml/config.xml, add  
 
 ```xml  
@@ -34,11 +39,22 @@ It contains:
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
+* Create a new file named `cordova_plugins.js` in the `<path to project>/www` folder if it does not exist.
+* Edit `cordova_plugins.js` and add a reference to the plugin to automatically load it:
 
-### PhoneGap/Cordova >= 3.0
-For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
-
-    cordova plugin add git://github.com/bthurlow/AndroidInAppBilling.git
+```javascript
+    cordova.define('cordova/plugin_list', function(require, exports, module) {
+    module.exports = [
+        {
+            "file": "plugins/com.phonegap.plugins.inapppurchase/www/inappbilling.js",
+            "id": "com.smartmobilesoftware.inappbilling.InAppBillingPlugin",
+            "clobbers": [
+                "inappbilling"
+	    ]
+    	}
+    ]
+    });
+```
 
 ### Finish setting up your app
 * Create a release apk of your app and sign it. 
