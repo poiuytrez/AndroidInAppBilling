@@ -64,9 +64,9 @@ parameters
 * error : The error callback.
 * options : Sets the options for the plugin
 	* Available Options :
-		* showLog [true,false] : showLog enables plugin JS debug messages.
+		* showLog [true,false] : showLog enables plugin JS debug messages. Default : true
 
-Optional Initialization
+#### Optional Initialization
 
     inappbilling.init(success, error, options, skus)
 parameters
@@ -74,7 +74,7 @@ parameters
 * error : The error callback.
 * options : Sets the options for the plugin
 	* Available Options :
-		* showLog [true,false] : showLog enables plugin JS debug messages.
+		* showLog [true,false] : showLog enables plugin JS debug messages. Default : true
 * skus : string or string[] of product skus. ie. "prod1" or ["prod1","prod2]
 
 #### Retrieve owned products
