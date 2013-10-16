@@ -66,6 +66,8 @@ parameters
 	* Available Options :
 		* showLog [true,false] : showLog enables plugin JS debug messages.
 
+Optional Initialization
+
     inappbilling.init(success, error, options, skus)
 parameters
 * success : The success callback.
@@ -121,6 +123,7 @@ parameters
 	"purchaseState":0,
 	"purchaseToken":"ccroltzduesqaxtuuopnqcsc.AO-J1Oyao-HWamJo_6a4OQSlhflhOjQgYWbb-99VF2gcj_CB1dd1Sfp5d-olgouTWJ13Q6vc5zbl0SFfpofmpyuyeEmJ"
 }
+
 * error : The error callback.
 * productId : The in app billing porduct id (example "5_lifes")
 
@@ -137,14 +140,15 @@ The list of the available product(s) in inventory.
 
 		inappbilling.getAvailableProducts(success, fail) 
 * success : The success callback. It provides a json array of the list of owned products as a parameter. Example :  
-[index][
-	title,
-	price,
-	type,
-	description,
-	productId,
-	price_currency_code
-]
+{index:
+{
+	"title":"Infinite Gas",
+	"price":"2.99",
+	"type":"subs",
+	"description":"Lots of Infinite Gas",
+	"productId":"infinite_gas",
+	"price_currency_code":"USD"
+}}
 
 * error : The error callback.
 
@@ -152,7 +156,7 @@ The list of the available product(s) in inventory.
 Quick example
 ---------------
 ```javascript
-inappbilling.init(successInit,errorCallback)
+inappbilling.init(successInit,errorCallback, {showLog:true})
 
 function successInit(result) {    
 	// display the extracted text   
@@ -230,7 +234,7 @@ Full example
 			// Click on Query Details button
 			function queryDetails(){
 				// Query the store for the product details
-				inappbilling.getProductDetails(successHandler, errorHandler, ["gas",""infinite_gas""]);
+				inappbilling.getProductDetails(successHandler, errorHandler, ["gas","infinite_gas"]);
 				
 			}
 			
@@ -251,8 +255,8 @@ Full example
         <button onclick="ownedProducts();">Owned products</button>
         <button onclick="consumePurchase();">Consume purchase</button>
         <button onclick="subscribe();">Subscribe</button>
-				<button onclick="getDetails();">Query Details</button>
-				<button onclick="getAvailable();">Get Available Products</button>
+        <button onclick="getDetails();">Query Details</button>
+        <button onclick="getAvailable();">Get Available Products</button>
     </body>
 </html>
 ```
