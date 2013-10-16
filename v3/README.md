@@ -227,14 +227,20 @@ Full example
 
             }
             
-       function queryDetails(){
-						inappbilling.getProductDetails(successHandler, errorHandler, ["gas",""infinite_gas""]);
-       }
-       
-       function getAvailable(){
-						inappbilling.getAvailableProducts(successHandler, errorHandler);
-       }
-
+			// Click on Query Details button
+			function queryDetails(){
+				// Query the store for the product details
+				inappbilling.getProductDetails(successHandler, errorHandler, ["gas",""infinite_gas""]);
+				
+			}
+			
+			// Click on Get Available Products button
+			function getAvailable(){
+				// Get the products available for purchase.
+				inappbilling.getAvailableProducts(successHandler, errorHandler);
+				
+			}						
+			
         </script>
 		
 	</head>
