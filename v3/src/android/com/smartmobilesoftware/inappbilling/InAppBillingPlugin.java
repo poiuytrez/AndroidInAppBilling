@@ -1,27 +1,29 @@
+/**
+ * In App Billing Plugin
+ * @author Guillaume Charhon - Smart Mobile Software
+ * @modifications Brian Thurlow 10/16/13
+ *
+ */
 package com.smartmobilesoftware.inappbilling;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import com.smartmobilesoftware.util.Purchase;
 import com.smartmobilesoftware.util.IabHelper;
 import com.smartmobilesoftware.util.IabResult;
 import com.smartmobilesoftware.util.Inventory;
+import com.smartmobilesoftware.util.SkuDetails;
 
 import android.content.Intent;
 import android.util.Log;
 
-
-/**
- * In App Billing Plugin
- * @author Guillaume Charhon - Smart Mobile Software
- *
- */
 public class InAppBillingPlugin extends CordovaPlugin {
 	private final Boolean ENABLE_DEBUG_LOGGING = true;
 	private final String TAG = "CORDOVA_BILLING";
@@ -63,37 +65,56 @@ public class InAppBillingPlugin extends CordovaPlugin {
 		try {
 			// Action selector
 			if ("init".equals(action)) {
+				final List<String> sku = new ArrayList<String>();
+				if(data.length() > 0){
+					JSONArray jsonSkuList = new JSONArray(data.getString(0));
+					int len = jsonSkuList.length();
+					Log.d(TAG, "Num SKUs Found: "+len);
+	   			 for (int i=0;i<len;i++){
+	    				sku.add(jsonSkuList.get(i).toString());
+						Log.d(TAG, "Product SKU Added: "+jsonSkuList.get(i).toString());
+	   			 }
+				}
 				// Initialize
-				init();
+				init(sku);
 			} else if ("getPurchases".equals(action)) {
 				// Get the list of purchases
 				JSONArray jsonSkuList = new JSONArray();
 				jsonSkuList = getPurchases();
-	            
 	            // Call the javascript back
 	            callbackContext.success(jsonSkuList);
 			} else if ("buy".equals(action)) {
 				// Buy an item
-				
 				// Get Product Id 
 				final String sku = data.getString(0);
 				buy(sku);
-	
 			} else if ("subscribe".equals(action)) {
 				// Subscribe to an item
-				
 				// Get Product Id 
 				final String sku = data.getString(0);
 				subscribe(sku);
-	
 			} else if ("consumePurchase".equals(action)) {
 				consumePurchase(data);
-				
+			} else if ("getAvailableProducts".equals(action)) {
+				// Get the list of purchases
+				JSONArray jsonSkuList = new JSONArray();
+				jsonSkuList = getAvailableProducts();
+	            // Call the javascript back
+	            callbackContext.success(jsonSkuList);
+			} else if ("getProductDetails".equals(action)) {
+				JSONArray jsonSkuList = new JSONArray(data.getString(0));
+				final List<String> sku = new ArrayList<String>();			
+				int len = jsonSkuList.length();
+				Log.d(TAG, "Num SKUs Found: "+len);
+   			 for (int i=0;i<len;i++){
+    				sku.add(jsonSkuList.get(i).toString());
+					Log.d(TAG, "Product SKU Added: "+jsonSkuList.get(i).toString());
+   			 }
+				getProductDetails(sku);				
 			} else {
 				// No handler for the action
 				isValidAction = false;
 			}
-		
 		} catch (IllegalStateException e){
 			callbackContext.error(e.getMessage());
 		} catch (JSONException e){
@@ -105,8 +126,8 @@ public class InAppBillingPlugin extends CordovaPlugin {
 	}
 	
 	// Initialize the plugin
-	private void init(){
-		
+	private void init(final List<String> skus){
+		Log.d(TAG, "init start");
 		// Some sanity checks to see if the developer (that's you!) really followed the
         // instructions to run this plugin
 	 	if (base64EncodedPublicKey.contains("CONSTRUCT_YOUR")) 
@@ -139,11 +160,14 @@ public class InAppBillingPlugin extends CordovaPlugin {
                 }
 
                 // Hooray, IAB is fully set up. Now, let's get an inventory of stuff we own.
-                Log.d(TAG, "Setup successful. Querying inventory.");
-                mHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-
-			
+                if(skus.size() <= 0){
+					Log.d(TAG, "Setup successful. Querying inventory.");
+                	mHelper.queryInventoryAsync(mGotInventoryListener);
+				}else{
+					Log.d(TAG, "Setup successful. Querying inventory w/ SKUs.");
+					mHelper.queryInventoryAsync(true, skus, mGotInventoryListener);
+				}
+            }			
         });
     }
 	
@@ -208,6 +232,39 @@ public class InAppBillingPlugin extends CordovaPlugin {
         
         return jsonSkuList;
         
+	}
+
+	// Get the list of available products
+	private JSONArray getAvailableProducts(){
+		// Get the list of owned items
+		if(myInventory == null){
+			callbackContext.error("Billing plugin was not initialized");
+			return new JSONArray();
+		}
+        List<SkuDetails>skuList = myInventory.getAllProducts();
+        
+		// Convert the java list to json
+	    JSONArray jsonSkuList = new JSONArray();
+		try{
+	        for (SkuDetails sku : skuList) {
+				Log.d(TAG, "SKUDetails: Title: "+sku.getTitle());
+	        	jsonSkuList.put(sku.toJson());
+	        }
+		}catch (JSONException e){
+			callbackContext.error(e.getMessage());
+		}
+		return jsonSkuList;
+	}
+
+	//Get SkuDetails for skus
+	private void getProductDetails(final List<String> skus){
+		if (mHelper == null){
+			callbackContext.error("Billing plugin was not initialized");
+			return;
+		}
+
+		Log.d(TAG, "Beginning Sku(s) Query!");
+		mHelper.queryInventoryAsync(true, skus, mGotInventoryListener);
 	}
 	
 	// Consume a purchase
