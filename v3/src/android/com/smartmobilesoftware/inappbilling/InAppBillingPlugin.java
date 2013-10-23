@@ -7,6 +7,7 @@
 package com.smartmobilesoftware.inappbilling;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 
 import java.util.List;
@@ -216,22 +217,22 @@ public class InAppBillingPlugin extends CordovaPlugin {
 	
 
 	// Get the list of purchases
-	private JSONArray getPurchases(){
+	private JSONArray getPurchases() throws JSONException {
 		// Get the list of owned items
 		if(myInventory == null){
 			callbackContext.error("Billing plugin was not initialized");
 			return new JSONArray();
 		}
-        List<String>skuList = myInventory.getAllOwnedSkus();
-        
+        List<Purchase>purchaseList = myInventory.getAllPurchases();
+
         // Convert the java list to json
-        JSONArray jsonSkuList = new JSONArray();
-        for (String sku : skuList) {
-        	jsonSkuList.put(sku);
+        JSONArray jsonPurchaseList = new JSONArray();
+        for (Purchase p : purchaseList) {
+	        jsonPurchaseList.put(new JSONObject(p.getOriginalJson()));
         }
-        
-        return jsonSkuList;
-        
+
+        return jsonPurchaseList;
+
 	}
 
 	// Get the list of available products
