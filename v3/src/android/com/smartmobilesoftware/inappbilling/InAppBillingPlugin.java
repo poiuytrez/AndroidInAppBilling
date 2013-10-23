@@ -264,7 +264,7 @@ public class InAppBillingPlugin extends CordovaPlugin {
 		}
 
 		Log.d(TAG, "Beginning Sku(s) Query!");
-		mHelper.queryInventoryAsync(true, skus, mGotInventoryListener);
+		mHelper.queryInventoryAsync(true, skus, mGotDetailsListener);
 	}
 	
 	// Consume a purchase
@@ -299,7 +299,32 @@ public class InAppBillingPlugin extends CordovaPlugin {
             
         }
     };
-    
+    // Listener that's called when we finish querying the details
+    IabHelper.QueryInventoryFinishedListener mGotDetailsListener = new IabHelper.QueryInventoryFinishedListener() {
+        public void onQueryInventoryFinished(IabResult result, Inventory inventory) {
+            Log.d(TAG, "Inside mGotDetailsListener");
+            if (!hasErrorsAndUpdateInventory(result, inventory)){
+
+            }
+
+            Log.d(TAG, "Query details was successful.");
+
+            List<SkuDetails>skuList = inventory.getAllProducts();
+        
+            // Convert the java list to json
+            JSONArray jsonSkuList = new JSONArray();
+            try {
+                for (SkuDetails sku : skuList) {
+                    Log.d(TAG, "SKUDetails: Title: "+sku.getTitle());
+                    jsonSkuList.put(sku.toJson());
+                }
+            } catch (JSONException e) {
+                callbackContext.error(e.getMessage());
+            }
+            callbackContext.success(jsonSkuList);
+        }
+    };
+
     // Check if there is any errors in the iabResult and update the inventory
     private Boolean hasErrorsAndUpdateInventory(IabResult result, Inventory inventory){
     	if (result.isFailure()) {
