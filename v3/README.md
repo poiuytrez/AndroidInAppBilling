@@ -248,7 +248,7 @@ Full example
             }
             
 			// Click on Query Details button
-			function queryDetails(){
+			function getDetails(){
 				// Query the store for the product details
 				inappbilling.getProductDetails(successHandler, errorHandler, ["gas","infinite_gas"]);
 				
