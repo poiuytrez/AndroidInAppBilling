@@ -98,11 +98,14 @@ The list of owned products are retrieved from the local database.
 
 	inappbilling.getPurchases(success, fail)
 parameters
-* success : The success callback. It provides a json array of the list of owned products as a parameter. Example :  
-[  
-	"sword_001",  
-	"saber_001" 
-]    
+* success : The success callback. It provides an array of json object representing the owned products as a parameter. Example: 
+
+ [{"purchaseToken":"tokenabc","developerPayload":"mypayload1",
+   "packageName":"com.example.MyPackage","purchaseState":0,"orderId":"12345.6789",
+   "purchaseTime":1382517909216,"productId":"example_subscription"},
+  {"purchaseToken":"tokenxyz","developerPayload":"mypayload2",
+   "packageName":"com.example.MyPacakge","purchaseState":0,"orderId":"98765.4321",
+   "purchaseTime":1382435077000,"productId":"example_product"}]
 
 * error : The error callback.
 
