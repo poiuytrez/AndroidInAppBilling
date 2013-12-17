@@ -2,30 +2,43 @@ In app billing documentation
 ===================================
 Requirements
 -------------
-Cordova 3.0, Android 2.2.1 and Android 4.2.2
+Phonegap 3.0, Android 2.2.1+
 
 * Purchasing and querying managed in-app items:  
 Google Play client version 3.9.16  
 * Purchasing and querying subscription items:  
 Google Play client version 3.10.10 or higher
 
-* Plugman & Phonegap/Cordova 3 plugin compatible
+Support
+---------------------
+For free community support, please use the issue tracker.  
+To get professional non-free support for the plugin, please contact me at gcharhon(at)smartmobilesoftware.com.
 
 Installation
 -------------
 
 * Get acquainted with the Android [In-app Billing documentation](http://developer.android.com/google/play/billing/index.html).
 
-### PhoneGap/Cordova >= 3.0
-For PhoneGap/Cordova >= 3.0 this plugin can be installed with a single command:
+### Automatic
 
-    cordova plugin add <location of v3.zip>
+We recommend this way to install the plugin into your project.
+
+1. Clone this project into your repository
+2. Run 
+
+    cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
+or
+    phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
     
+
 ### Manually
+
+The manual steps are not working on Phonegap 3.1+. Theses steps are not maintained anymore. Check the [issue #32](_https://github.com/poiuytrez/AndroidInAppBilling/issues/32) for more info. 
+
 * Add in your `src` folder the `src/android/com` folder  
 It contains:
     * [Google Play In-app Billing library]( http://developer.android.com/guide/google/play/billing/billing_overview.html)
-	* Cordova InAppBillingPlugin
+	* Phonegap InAppBillingPlugin
 * Create a `plugins` folder in your project's `www` folder if it does not exist.
 * Create a `com.smartmobilesoftware.inappbilling` folder inside the `plugins` folder.
 * Copy `www/inappbilling.js` into `<path to project>/www/plugins/com.smartmobilesoftware.inappbilling/www`
@@ -39,11 +52,11 @@ It contains:
 * Open the AndroidManifest.xml of your application
 	* add this permission  
 `<uses-permission android:name="com.android.vending.BILLING" />`
-* Create a new file named `cordova_plugins.js` in the `<path to project>/www` folder if it does not exist.
-* Edit `cordova_plugins.js` and add a reference to the plugin to automatically load it:
+* Create a new file named `Phonegap_plugins.js` in the `<path to project>/www` folder if it does not exist.
+* Edit `Phonegap_plugins.js` and add a reference to the plugin to automatically load it:
 
 ```javascript
-    cordova.define('cordova/plugin_list', function(require, exports, module) {
+    Phonegap.define('Phonegap/plugin_list', function(require, exports, module) {
     module.exports = [
         {
             "file": "plugins/com.smartmobilesoftware.inappbilling/www/inappbilling.js",
@@ -136,7 +149,7 @@ parameters
 * success : The success callback. It provides a json object with the transaction details. Example :  
 {
 	"orderId":"12999763169054705758.1321583410745163",
-	"packageName":"com.smartmobilesoftware.trivialdrivecordova",
+	"packageName":"com.smartmobilesoftware.trivialdrivePhonegap",
 	"productId":"gas",
 	"purchaseTime":1369402680000,
 	"purchaseState":0,
@@ -200,7 +213,7 @@ Full example
 <html>
 	<head>
 		<title>In App Billing</title>
-		<script type="text/javascript" charset="utf-8" src="cordova-2.7.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
 		<script type="text/javascript" charset="utf-8" src="inappbilling.js"></script>
 		<script type="text/javascript" charset="utf-8">
 			function successHandler (result) {
@@ -298,7 +311,7 @@ If any of these questions is answered with a "no", you probably need to fix that
 MIT License
 ----------------
 
-Copyright (c) 2012-2013 Guillaume Charhon - Smart Mobile Software
+Copyright (c) 2012-2014 Guillaume Charhon - Smart Mobile Software
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
