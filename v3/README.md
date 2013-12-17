@@ -24,12 +24,14 @@ Installation
 We recommend this way to install the plugin into your project.
 
 1. Clone this project into your repository
-2. Run 
-
+2. Run at the root of your project:  
+```
     cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
-or
+```  
+or  
+```
     phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
-    
+```
 
 ### Manually
 
