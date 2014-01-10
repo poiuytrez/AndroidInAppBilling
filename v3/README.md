@@ -14,6 +14,9 @@ Support
 For free community support, please use the issue tracker.  
 To get professional non-free support for the plugin, please contact me at gcharhon(at)smartmobilesoftware.com.
 
+If you find this plugin useful, please donate via BitCoin to support it:  
+17JK27E4vbzPrJbBAtvjUVN3LrFcATtRA1
+
 Installation
 -------------
 
