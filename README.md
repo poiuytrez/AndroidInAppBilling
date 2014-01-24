@@ -3,6 +3,9 @@ In app billing documentation
 
 Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application.  
 
+If you find this plugin useful, please donate via BitCoin to support it:  
+17JK27E4vbzPrJbBAtvjUVN3LrFcATtRA1
+
 [Version 2 documentation](v2/README.md)  
 [Version 3 documentation](v3/README.md)
 
@@ -14,6 +17,7 @@ Support
 ---------------------
 For free community support, please use the issue tracker.  
 To get professional non-free support for the plugin, please contact me at gcharhon(at)smartmobilesoftware.com.
+
 
 MIT License
 ----------------
