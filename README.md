@@ -3,7 +3,7 @@ In app billing documentation
 
 Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application.  
 
-If you find this plugin useful, please donate via BitCoin to support it:  
+If you find this plugin useful, please donate via Bitcoin to support it:  
 17JK27E4vbzPrJbBAtvjUVN3LrFcATtRA1
 
 [Version 2 documentation](v2/README.md)  
