@@ -369,7 +369,7 @@ public class InAppBillingPlugin extends CordovaPlugin {
             
             // add the purchase to the inventory
             myInventory.addPurchase(purchase);
-            callbackContext.success(purchase.getSku());
+            callbackContext.success(purchase.getOriginalJson());
 
         }
     };
