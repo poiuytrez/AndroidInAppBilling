@@ -132,10 +132,17 @@ Purchase an item. You cannot buy an item that you already own.
 
     inappbilling.buy(success, fail, productId)
 parameters
-* success : The success callback. It provides the productId of the purchased item as a parameter. Example :
-sword_001
+* success : The success callback. It provides a json object representing the purchased item as first parameter. Example :
+
+{"orderId":"12999763169054705758.1385463868367493",
+"packageName":"com.example.myPackage",
+"productId":"example_subscription",
+"purchaseTime":1397590291362,
+"purchaseState":0,
+"purchaseToken":"ndglbpnjmbfccnaocnppjjfa.AO-J1Ozv857LtAk32HbtVNaK5BVnDm9sMyHFJkl-R_hJ7dCSVTazsnPGgnwNOajDm-Q3DvKEXLRWQXvucyW2rrEvAGr3wiG3KnMayn5yprqYCkMNhFl4KgZWt-4-b4Gr29_Lq8kcfKCkI57t5rUmFzTdj5fAdvX5KQ"}
+
 * error : The error callback.
-* productId : The in app billing porduct id (example "sword_001")
+* productId : The in app billing product id (example "example_subscription")
 
 #### Subscribe
 Subscribe to an item
@@ -144,7 +151,7 @@ Subscribe to an item
 parameters
 * success : The success callback.
 * error : The error callback.
-* productId : The in app billing porduct id (example "premium_001")
+* productId : The in app billing product id (example "premium_001")
 
 #### Consume
 Consume an item. You can consume an item that you own. Example of consumable items : food, additional life pack, etc. Example of non-consumable item: levels pack. Once an item is consumed, it is not owned anymore.
@@ -162,7 +169,7 @@ parameters
 }
 
 * error : The error callback.
-* productId : The in app billing porduct id (example "5_lifes")
+* productId : The in app billing product id (example "5_lifes")
 
 #### Get Product(s) Details
 Load the available product(s) to inventory. Not needed if you use the init(success, error, options, skus) method.  Can be used to update inventory if you need to add more skus.
