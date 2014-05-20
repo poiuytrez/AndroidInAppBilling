@@ -369,7 +369,12 @@ public class InAppBillingPlugin extends CordovaPlugin {
             
             // add the purchase to the inventory
             myInventory.addPurchase(purchase);
-            callbackContext.success(new JSONObject(purchase.getOriginalJson()));
+            
+            try {
+                callbackContext.success(new JSONObject(purchase.getOriginalJson()));
+            } catch (JSONException e) {
+                callbackContext.error("Could not create JSON object from purchase object");
+            }
 
         }
     };
