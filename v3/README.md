@@ -75,14 +75,21 @@ It contains:
 ```
 
 ### Finish setting up your app
-* Create a release apk of your app and sign it. 
-* Create a new application in the Developer Console. 
-* Upload your apk 
+* Create a release apk of your app and sign it.
+* Create a new application in the Developer Console.
+* Upload your apk
 * Enter the app description, logo, etc. then click on save
 * Add in-app purchases items from the Developer Console (activate them but do not publish the app)
 * Click on Services and APIs to get your public license key
-* In src/android/com/smartmobilesoftware/inappbilling open InAppBillingPlugin.java
-	* Add your public key (base64EncodedPublicKey)
+* Create `res/values/billing_key.xml`, and add your public key as follows:
+
+```
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="billing_key">MIIBIjANBgk...AQAB</string>
+</resources>
+```
+
 * Wait 6-8 hours
 * Install the signed app on your test device in release mode. The Google Account on the test device should not be the same as the developer account).
 * Read carefully the Google testing guide to learn how to test your app : http://developer.android.com/guide/google/play/billing/billing_testing.html

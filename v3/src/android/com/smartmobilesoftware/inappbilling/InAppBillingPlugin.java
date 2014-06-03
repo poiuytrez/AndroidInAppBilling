@@ -28,32 +28,19 @@ import android.util.Log;
 public class InAppBillingPlugin extends CordovaPlugin {
 	private final Boolean ENABLE_DEBUG_LOGGING = true;
 	private final String TAG = "CORDOVA_BILLING";
-	
-	
-	/* base64EncodedPublicKey should be YOUR APPLICATION'S PUBLIC KEY
-     * (that you got from the Google Play developer console). This is not your
-     * developer public key, it's the *app-specific* public key.
-     *
-     * Instead of just storing the entire literal string here embedded in the
-     * program,  construct the key at runtime from pieces or
-     * use bit manipulation (for example, XOR with some other string) to hide
-     * the actual key.  The key itself is not secret information, but we don't
-     * want to make it easy for an attacker to replace the public key with one
-     * of their own and then fake messages from the server.
-     */
-    private final String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkYbZ4R1GpZTO1GAA2FK6iC0QdXY56GT5oQtmsovDnPBALuSQ2Y02HVKh12E3r36GLzDjtyoJnNNq5UQf2jOblWxzwYHAsjl4nzhmkE7I66Twnn8G/ynqbVZxiotjSoT9L6B3RUI5vSy18ewLfxYgXq6gr46SsAa3N6urr2Wjbp5Z3rhv1LfzFcUrb2sAzy4T6QkDN9ybwYJt1X6ig58khduhh5KKjVIVGKlV51ewi9sCUGoex3F2sW/qll1mMKSXWe9qvkDKUug3dTdp2Acns/wbQVWcOGO6nwoFBR8VXPchIvHfoNmHb9eFWCW/cIlvzVipA3wOXCFPn0jwsUkq/QIDAQAB";
-    
+
+
     // (arbitrary) request code for the purchase flow
     static final int RC_REQUEST = 10001;
-    
+
     // The helper object
     IabHelper mHelper;
-    
+
     // A quite up to date inventory of available items and purchase items
-    Inventory myInventory; 
-    
+    Inventory myInventory;
+
     CallbackContext callbackContext;
-    
+
 	@Override
 	/**
 	 * Called by each javascript plugin function
@@ -121,30 +108,33 @@ public class InAppBillingPlugin extends CordovaPlugin {
 		} catch (JSONException e){
 			callbackContext.error(e.getMessage());
 		}
-		
+
 		// Method not found
 		return isValidAction;
 	}
-	
+
 	// Initialize the plugin
 	private void init(final List<String> skus){
 		Log.d(TAG, "init start");
 		// Some sanity checks to see if the developer (that's you!) really followed the
         // instructions to run this plugin
-	 	if (base64EncodedPublicKey.contains("CONSTRUCT_YOUR")) 
+                int billingKey = cordova.getActivity().getResources().getIdentifier("billing_key", "string", cordova.getActivity().getPackageName());
+                String base64EncodedPublicKey = cordova.getActivity().getString(billingKey);
+
+	 	if (base64EncodedPublicKey.contains("CONSTRUCT_YOUR"))
 	 		throw new RuntimeException("Please put your app's public key in InAppBillingPlugin.java. See ReadMe.");
-	 	
+
 	 	// Create the helper, passing it our context and the public key to verify signatures with
         Log.d(TAG, "Creating IAB helper.");
         mHelper = new IabHelper(cordova.getActivity().getApplicationContext(), base64EncodedPublicKey);
-        
+
         // enable debug logging (for a production application, you should set this to false).
         mHelper.enableDebugLogging(ENABLE_DEBUG_LOGGING);
-        
+
         // Start setup. This is asynchronous and the specified listener
         // will be called once setup completes.
         Log.d(TAG, "Starting setup.");
-        
+
         mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             public void onIabSetupFinished(IabResult result) {
                 Log.d(TAG, "Setup finished.");
