@@ -317,9 +317,12 @@ Common issues
 If you have an issue, make sure that you can answer to theses questions:  
 Did you create your item in the Developer Console?  
 Is the id for your item the same in the Developer Console and in your app?  
-Is your item active?  
-Have you waited at least a few hours since you activated your item and uploaded your apk on the Developer Console?  
-Are you using a different Google account than your developer account to make the purchase?  
+Is your item active? 
+Have you uploaded and published your apk in the alpha or beta channels?  You can no longer test in app purchases with an apk in draft mode.
+Have you waited at least a few hours since you activated your item and published your apk on the Developer Console?  
+Are you using a different Google account than your developer account to make the purchase?
+Is the Google account part of a google+ community or group that you invited in the alpha or beta channel?
+Using the Google account, did you follow the link that appears in the channel where you published your apk, and accept the invitation to test?
 Are you testing on a real device, rather than the emulator?  
 Are you using a signed apk?  
 Is the version code of your app the same as the one uploaded on the Developer Console?  
