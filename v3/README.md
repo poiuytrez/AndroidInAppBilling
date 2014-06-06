@@ -93,7 +93,7 @@ It contains:
 * Wait 6-8 hours
 * Install the signed app on your test device in release mode. The Google Account on the test device should not be the same as the developer account).
 * Read carefully the Google testing guide to learn how to test your app : http://developer.android.com/guide/google/play/billing/billing_testing.html
-
+* You can test purchase with no charge by adding google test account in your developer console -> 'Settings -> gmail accounts with testing access".
 Usage
 -------
 #### Initialization
