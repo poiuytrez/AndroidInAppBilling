@@ -14,7 +14,7 @@ InAppBilling.prototype.init = function (success, fail, options, skus) {
 	options || (options = {});
 
 	this.options = {
-		showLog: options.showLog || true
+		showLog: options.showLog !== false
 	};
 	
 	if (this.options.showLog) {
@@ -30,11 +30,15 @@ InAppBilling.prototype.init = function (success, fail, options, skus) {
     	if (skus.length > 0) {
         	if (typeof skus[0] !== 'string') {
             	var msg = 'invalid productIds: ' + JSON.stringify(skus);
-            	log(msg);
+            	if (this.options.showLog) {
+            		log(msg);
+            	}
 				fail(msg);
             	return;
         	}
-        	log('load ' + JSON.stringify(skus));
+        	if (this.options.showLog) {
+        		log('load ' + JSON.stringify(skus));
+        	}
 			hasSKUs = true;
     	}
 	}
@@ -94,8 +98,9 @@ InAppBilling.prototype.getProductDetails = function (success, fail, skus) {
 			fail(msg);
             return;
         }
-        log('load ' + JSON.stringify(skus));
-
+        if (this.options.showLog) {
+        	log('load ' + JSON.stringify(skus));
+        }
 		return cordova.exec(success, fail, "InAppBillingPlugin", "getProductDetails", [skus]);
     }
 };
