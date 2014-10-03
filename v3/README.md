@@ -146,7 +146,10 @@ parameters
 "productId":"example_subscription",
 "purchaseTime":1397590291362,
 "purchaseState":0,
-"purchaseToken":"ndglbpnjmbfccnaocnppjjfa.AO-J1Ozv857LtAk32HbtVNaK5BVnDm9sMyHFJkl-R_hJ7dCSVTazsnPGgnwNOajDm-Q3DvKEXLRWQXvucyW2rrEvAGr3wiG3KnMayn5yprqYCkMNhFl4KgZWt-4-b4Gr29_Lq8kcfKCkI57t5rUmFzTdj5fAdvX5KQ"}
+"purchaseToken":"ndglbpnjmbfccnaocnppjjfa.AO-J1Ozv857LtAk32HbtVNaK5BVnDm9sMyHFJkl-R_hJ7dCSVTazsnPGgnwNOajDm-Q3DvKEXLRWQXvucyW2rrEvAGr3wiG3KnMayn5yprqYCkMNhFl4KgZWt-4-b4Gr29_Lq8kcfKCkI57t5rUmFzTdj5fAdvX5KQ",
+"receipt": "{...}",
+"signature": "qs54SGHgjGSJHSKJHIU"}  
+**The receipt and signature are available in the object for server side validation.**
 
 * error : The error callback.
 * productId : The in app billing product id (example "example_subscription")
