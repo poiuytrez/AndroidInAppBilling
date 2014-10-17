@@ -29,11 +29,11 @@ We recommend this way to install the plugin into your project.
 1. Clone this project into your repository
 2. Run at the root of your project:  
 ```
-    cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
+    cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3 --variable BILLING_KEY="MIIBIjANBgk...AQAB"
 ```  
 or  
 ```
-    phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3
+    phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3 --variable BILLING_KEY="MIIBIjANBgk...AQAB"
 ```
 
 ### Manually
@@ -81,13 +81,12 @@ It contains:
 * Enter the app description, logo, etc. then click on save
 * Add in-app purchases items from the Developer Console (activate them but do not publish the app)
 * Click on Services and APIs to get your public license key
-* Create `res/values/billing_key.xml`, and add your public key as follows:
+* For PhoneGap build, configure the plugin with a parameter in your `config.xml` file
 
-```
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="billing_key">MIIBIjANBgk...AQAB</string>
-</resources>
+```xml
+<gap:plugin name="com.smartmobilesoftware.inappbilling">
+    <param name="BILLING_KEY" value="MIIBIjANBgk...AQAB" />
+</gap:plugin>
 ```
 
 * Wait 6-8 hours
