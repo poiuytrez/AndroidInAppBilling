@@ -18,6 +18,8 @@
 	
     <!-- android -->
     <platform name="android">
+        <preference name="BILLING_KEY" />
+
         <js-module src="www/inappbilling.js" name="InAppBillingPlugin">
             <clobbers target="inappbilling" />
         </js-module>
@@ -33,7 +35,12 @@
 				<param name="android-package" value="com.smartmobilesoftware.inappbilling.InAppBillingPlugin"/>
 			</feature>
         </config-file>
-        
+
+        <source-file src="res/values/billing_key_param.xml" target-dir="res/values/" />
+        <config-file target="res/values/billing_key_param.xml" parent="/*">
+            <string name="billing_key_param">$BILLING_KEY</string>
+        </config-file>
+
         <!-- In-app Billing Library -->
 		<source-file src="src/android/com/android/vending/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
 
