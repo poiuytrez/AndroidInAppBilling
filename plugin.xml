@@ -10,7 +10,7 @@
     
     <author>Guillaume Charhon - Smart Mobile Software</author>
     <keywords>billing,in-app,inapp,purchase,credit</keywords>
-    <license>MIT License</license>
+    <license>MIT</license>
 
     <engines>
       <engine name="cordova" version=">=3.0.0" />
