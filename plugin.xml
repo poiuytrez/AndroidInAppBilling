@@ -19,8 +19,8 @@
     <!-- android -->
     <platform name="android">
         <preference name="BILLING_KEY" />
-        
-        <js-module src="v3/www/inappbilling.js" name="InAppBillingPlugin">
+
+        <js-module src="www/inappbilling.js" name="InAppBillingPlugin">
             <clobbers target="inappbilling" />
         </js-module>
 
@@ -36,25 +36,25 @@
 			</feature>
         </config-file>
 
-        <source-file src="v3/res/values/billing_key_param.xml" target-dir="res/values/" />
+        <source-file src="res/values/billing_key_param.xml" target-dir="res/values/" />
         <config-file target="res/values/billing_key_param.xml" parent="/*">
             <string name="billing_key_param">$BILLING_KEY</string>
         </config-file>
 
         <!-- In-app Billing Library -->
-		<source-file src="v3/src/android/com/android/vending/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
+		<source-file src="src/android/com/android/vending/billing/IInAppBillingService.aidl" target-dir="src/com/android/vending/billing" />
 
         <!-- cordova plugin src files -->
-        <source-file src="v3/src/android/com/smartmobilesoftware/inappbilling/InAppBillingPlugin.java" target-dir="src/com/smartmobilesoftware/inappbilling" />
+        <source-file src="src/android/com/smartmobilesoftware/inappbilling/InAppBillingPlugin.java" target-dir="src/com/smartmobilesoftware/inappbilling" />
 
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/Base64.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/Base64DecoderException.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabException.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabHelper.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/IabResult.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/Inventory.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/Purchase.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/Security.java" target-dir="src/com/smartmobilesoftware/util" />
-		<source-file src="v3/src/android/com/smartmobilesoftware/util/SkuDetails.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/Base64.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/Base64DecoderException.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/IabException.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/IabHelper.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/IabResult.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/Inventory.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/Purchase.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/Security.java" target-dir="src/com/smartmobilesoftware/util" />
+		<source-file src="src/android/com/smartmobilesoftware/util/SkuDetails.java" target-dir="src/com/smartmobilesoftware/util" />
     </platform>
 </plugin>
