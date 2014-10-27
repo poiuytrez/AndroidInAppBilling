@@ -29,11 +29,11 @@ We recommend this way to install the plugin into your project.
 1. Clone this project into your repository
 2. Run at the root of your project:  
 ```
-    cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3 --variable BILLING_KEY="MIIBIjANBgk...AQAB"
+    cordova plugin add /path/to/your/cloned/plugin/AndroidInAppBilling --variable BILLING_KEY="MIIBIjANBgk...AQAB"
 ```  
 or  
 ```
-    phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling/v3 --variable BILLING_KEY="MIIBIjANBgk...AQAB"
+    phonegap local plugin add /path/to/your/cloned/plugin/AndroidInAppBilling --variable BILLING_KEY="MIIBIjANBgk...AQAB"
 ```
 
 ### Manually
