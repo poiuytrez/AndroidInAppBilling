@@ -2,8 +2,8 @@
 <plugin
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.smartmobilesoftware.inappbilling"
-    version="3.0.1">
+    id="com.smartmobilesoftware.androidinappbilling"
+    version="3.0.2">
 
     <name>Android InAppBilling</name>
     <description>Use this In-app Billing plugin to sell digital goods, including one-time items and recurring subscriptions from your Cordova application. Main repo with full documentation located at: https://github.com/poiuytrez/AndroidInAppBilling</description>
