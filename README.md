@@ -126,10 +126,12 @@ parameters
 
  [{"purchaseToken":"tokenabc","developerPayload":"mypayload1",
    "packageName":"com.example.MyPackage","purchaseState":0,"orderId":"12345.6789",
-   "purchaseTime":1382517909216,"productId":"example_subscription"},
+   "purchaseTime":1382517909216,"productId":"example_subscription",
+   "receipt": "{...}","signature": "sq45GSgHGjJSSHJKUHI"},
   {"purchaseToken":"tokenxyz","developerPayload":"mypayload2",
    "packageName":"com.example.MyPacakge","purchaseState":0,"orderId":"98765.4321",
-   "purchaseTime":1382435077000,"productId":"example_product"}]
+   "purchaseTime":1382435077000,"productId":"example_product",
+   "receipt": "{...}","signature": "qs54SGHgjGSJHSKJHIU"}]
 
 * error : The error callback.
 
