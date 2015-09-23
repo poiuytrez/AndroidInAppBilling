@@ -56,6 +56,20 @@ InAppBilling.prototype.getPurchases = function (success, fail) {
 	}
 	return cordova.exec(success, fail, "InAppBillingPlugin", "getPurchases", ["null"]);
 };
+InAppBilling.prototype.refreshPurchases = function (success, fail) {
+	if (this.options.showLog) {
+		log('refreshPurchases called!');
+	}
+
+	var self = this;
+	var onSuccess = function() {
+		self.getPurchases(function(purchases) {
+			success(purchases);
+		}, fail);
+	};
+
+	return cordova.exec(onSuccess, fail, "InAppBillingPlugin", "refreshPurchases", ["null"]);
+};
 InAppBilling.prototype.buy = function (success, fail, productId) {
 	if (this.options.showLog) {
 		log('buy called!');

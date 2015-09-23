@@ -65,7 +65,9 @@ public class InAppBillingPlugin extends CordovaPlugin {
 				}
 				// Initialize
 				init(sku);
-			} else if ("getPurchases".equals(action)) {
+			} else if ("refreshPurchases".equals(action)) {
+                mHelper.queryInventoryAsync(mGotInventoryListener);
+            } else if ("getPurchases".equals(action)) {
 				// Get the list of purchases
 				JSONArray jsonSkuList = new JSONArray();
 				jsonSkuList = getPurchases();
