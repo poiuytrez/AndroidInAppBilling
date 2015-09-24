@@ -118,5 +118,14 @@ InAppBilling.prototype.getProductDetails = function (success, fail, skus) {
 		return cordova.exec(success, fail, "InAppBillingPlugin", "getProductDetails", [skus]);
     }
 };
+InAppBilling.prototype.isPurchaseOpen = function (success, fail) {
+
+	var onSuccess = function(state) {
+		var bool = (state == "true") ? true : false;
+		success(bool);
+	};
+
+	return cordova.exec(onSuccess, fail, "InAppBillingPlugin", "isPurchaseOpen", []);
+}
 
 module.exports = new InAppBilling();

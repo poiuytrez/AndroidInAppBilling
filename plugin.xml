@@ -56,5 +56,6 @@
 		<source-file src="src/android/com/smartmobilesoftware/util/Purchase.java" target-dir="src/com/smartmobilesoftware/util" />
 		<source-file src="src/android/com/smartmobilesoftware/util/Security.java" target-dir="src/com/smartmobilesoftware/util" />
 		<source-file src="src/android/com/smartmobilesoftware/util/SkuDetails.java" target-dir="src/com/smartmobilesoftware/util" />
+        <source-file src="src/android/com/smartmobilesoftware/util/Action.java" target-dir="src/com/smartmobilesoftware/util" />
     </platform>
 </plugin>
