@@ -65,7 +65,9 @@ public class InAppBillingPlugin extends CordovaPlugin {
 				}
 				// Initialize
 				init(sku);
-			} else if ("getPurchases".equals(action)) {
+			} else if ("refreshPurchases".equals(action)) {
+                mHelper.queryInventoryAsync(mGotInventoryListener);
+            } else if ("getPurchases".equals(action)) {
 				// Get the list of purchases
 				JSONArray jsonSkuList = new JSONArray();
 				jsonSkuList = getPurchases();
@@ -227,7 +229,10 @@ public class InAppBillingPlugin extends CordovaPlugin {
         // Convert the java list to json
         JSONArray jsonPurchaseList = new JSONArray();
         for (Purchase p : purchaseList) {
-	        jsonPurchaseList.put(new JSONObject(p.getOriginalJson()));
+            JSONObject purchaseJsonObject = new JSONObject(p.getOriginalJson());
+            purchaseJsonObject.put("signature", p.getSignature());
+            purchaseJsonObject.put("receipt", p.getOriginalJson().toString());
+            jsonPurchaseList.put(purchaseJsonObject);
         }
 
         return jsonPurchaseList;

@@ -133,6 +133,14 @@ parameters
 
 * error : The error callback.
 
+#### Force refresh owned products
+The plugin retrieve the list of owned products from Google Play during the initialisation and cache the it internally, the getPurchase method returns the local copy of this list.   
+If for some reason you have to force refresh the list of the owned products, use the refreshPurchases method.
+
+	inappbilling.refreshPurchases(success, fail)
+
+The parameters are exactly the same, the success callback provides also an array with the owned products.
+
 #### Purchase
 Purchase an item. You cannot buy an item that you already own.
 
