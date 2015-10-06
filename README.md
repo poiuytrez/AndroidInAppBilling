@@ -213,6 +213,11 @@ The list of the available product(s) in inventory.
 
 * error : The error callback.
 
+#### Check if the Play Store purchase view is open
+
+		inappbilling.isPurchaseOpen(success)
+* success : The success callback. It provides a boolean
+
 
 Quick example
 ---------------
