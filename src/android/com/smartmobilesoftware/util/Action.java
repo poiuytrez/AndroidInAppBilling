@@ -129,7 +129,8 @@ public class Action {
 		plugin.startActivity();
         Log.d(plugin.TAG, "Launching purchase flow for subscription.");
 
-		mHelper.launchPurchaseFlow(plugin.cordova.getActivity(), sku, IabHelper.ITEM_TYPE_SUBS, plugin.RC_REQUEST, mPurchaseFinishedListener, payload);   
+		mHelper.launchSubscriptionPurchaseFlow(plugin.cordova.getActivity(), sku, plugin.RC_REQUEST, 
+            mPurchaseFinishedListener);
 	}
 	
 
